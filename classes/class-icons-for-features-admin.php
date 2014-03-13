@@ -96,7 +96,7 @@ class Icons_For_Features_Admin {
 			return;
 		}
 
-		$icon = 'fa-ban';
+		$icon = 'fa-no-feature-icon';
 		if ( isset( $fields['_icon'][0] ) ) {
 			$icon = esc_attr( $fields['_icon'][0] );
 		}
@@ -111,6 +111,9 @@ class Icons_For_Features_Admin {
 			$html .= '<option value="' . esc_attr( $v ) . '"' . selected( $icon, $v, false ) . '>' . esc_html( Icons_For_Features()->get_icon_label( $v ) ) . '</option>' . "\n";
 		}
 		$html .= '</select>' . "\n";
+
+		// Make sure this variable is empty, to ensure we have an empty hidden field.
+		if ( 'fa-no-featured-icon' == $icon ) $icon = '';
 
 		$html .= '<input type="hidden" name="currently-selected-icon" class="currently-selected-icon" value="' . esc_attr( $icon ) . '" />' . "\n";
 
