@@ -212,6 +212,23 @@ final class Icons_For_Features {
 	} // End maybe_enqueue_styles()
 
 	/**
+	 * Get the HTML for the stored icon for a given feature.
+	 * @access public
+	 * @since  1.0.0
+	 * @param  int $post_id The feature for which to retrieve the icon.
+	 * @return string       Formatted icon HTML.
+	 */
+	public function get_the_icon_html ( $post_id = null ) {
+		if ( is_null( $post_id ) ) $post_id = get_the_ID();
+		$response = '';
+		$icon = get_post_meta( intval( $post_id ), '_icon', true );
+		if ( '' != $icon && in_array( $icon, $this->get_supported_icon_list() ) ) {
+			$response = '<div class="icon-preview fa ' . esc_attr( $icon ) . '"></div>' . "\n";
+		}
+		return (string)apply_filters( 'icons_for_features_get_the_icon_html', $response );
+	} // End get_the_icon_html()
+
+	/**
 	 * Transform a given icon key into a human-readable label.
 	 * @access public
 	 * @since  1.0.0

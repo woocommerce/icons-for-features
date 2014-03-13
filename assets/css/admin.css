@@ -8,3 +8,6 @@
   width: 100%;
   overflow: auto;
 }
+.column-icon .icon-preview {
+  font-size: 3em;
+}

@@ -37,6 +37,9 @@ class Icons_For_Features_Admin {
 		add_action( 'admin_print_styles', array( $this, 'maybe_load_styles' ) );
 		add_action( 'admin_print_scripts', array( $this, 'maybe_load_scripts' ) );
 
+		add_filter( 'manage_edit-feature_columns', array( $this, 'register_custom_column_headings' ), 20, 1 );
+		add_action( 'manage_posts_custom_column', array( $this, 'register_custom_columns' ), 20, 2 );
+
 		// add_action( 'admin_notices', array( $this, 'settings_notices' ) );
 	} // End __construct()
 
@@ -149,5 +152,64 @@ class Icons_For_Features_Admin {
 			}
 		}
 	} // End meta_box_save()
+
+	/**
+	 * Add custom columns for the "manage" screen of this post type.
+	 *
+	 * @access public
+	 * @param string $column_name
+	 * @param int $id
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function register_custom_columns ( $column_name, $id ) {
+		if ( 'feature' != get_post_type() ) return;
+		global $post;
+
+		switch ( $column_name ) {
+
+			case 'icon':
+				$value = '';
+
+				$value = Icons_For_Features()->get_the_icon_html( $id );
+
+				echo $value;
+			break;
+
+			default:
+			break;
+		}
+	} // End register_custom_columns()
+
+	/**
+	 * Add custom column headings for the "manage" screen of this post type.
+	 *
+	 * @access public
+	 * @param array $defaults
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function register_custom_column_headings ( $defaults ) {
+		if ( 'feature' != get_post_type() ) return;
+		$new_columns = array( 'icon' => __( 'Icon', 'icons-for-features' ) );
+
+		$last_item = '';
+
+		if ( count( $defaults ) > 2 ) {
+			$last_item = array_slice( $defaults, -1 );
+
+			array_pop( $defaults );
+		}
+		$defaults = array_merge( $defaults, $new_columns );
+
+		if ( $last_item != '' ) {
+			foreach ( $last_item as $k => $v ) {
+				$defaults[$k] = $v;
+				break;
+			}
+		}
+
+		return $defaults;
+	} // End register_custom_column_headings()
 } // End Class
 ?>
