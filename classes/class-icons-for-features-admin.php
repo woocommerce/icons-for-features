@@ -40,8 +40,83 @@ class Icons_For_Features_Admin {
 		add_filter( 'manage_edit-feature_columns', array( $this, 'register_custom_column_headings' ), 20, 1 );
 		add_action( 'manage_posts_custom_column', array( $this, 'register_custom_columns' ), 20, 2 );
 
-		// add_action( 'admin_notices', array( $this, 'settings_notices' ) );
+		// Display an admin notice, if the Features by WooThemes plugin it's present or is present yet not activated.
+		add_action( 'network_admin_notices', array( $this, 'maybe_display_activation_notice' ) );
+		add_action( 'admin_notices', array( $this, 'maybe_display_activation_notice' ) );
+		if( is_multisite() && ! is_network_admin() ) remove_action( 'admin_notices', array( $this, 'maybe_display_activation_notice' ) );
+
+		// Process the 'Dismiss' link, if valid.
+		add_action( 'admin_init', array( $this, 'maybe_process_dismiss_link' ) );
 	} // End __construct()
+
+	/**
+	 * If the nonce is valid and the action is "icons-for-features-dismiss", process the dismissal.
+	 * @access  public
+	 * @since   1.2.1
+	 * @return  void
+	 */
+	public function maybe_process_dismiss_link () {
+		if ( isset( $_GET['action'] ) && ( 'icons-for-features-dismiss' == $_GET['action'] ) && isset( $_GET['nonce'] ) && check_admin_referer( 'icons-for-features-dismiss', 'nonce' ) ) {
+			update_site_option( 'icons_for_features_dismiss_activation_notice', true );
+
+			$redirect_url = remove_query_arg( 'action', remove_query_arg( 'nonce', $_SERVER['REQUEST_URI'] ) );
+
+			wp_safe_redirect( $redirect_url );
+			exit;
+		}
+	} // End maybe_process_dismiss_link()
+
+	/**
+	 * Display an admin notice, if the Features by WooThemes plugin is present and not activated, or not present.
+	 * @access  public
+	 * @since   1.2.1
+	 * @return  void
+	 */
+	public function maybe_display_activation_notice () {
+		if ( $this->_is_features_plugin_activated() ) return;
+		if ( ! current_user_can( 'manage_options' ) ) return; // Don't show the message if the user isn't an administrator.
+		if ( is_multisite() && ! is_super_admin() ) return; // Don't show the message if on a multisite and the user isn't a super user.
+		if ( true == get_site_option( 'icons_for_features_dismiss_activation_notice', false ) ) return; // Don't show the message if the user dismissed it.
+
+		$slug = 'features-by-woothemes';
+		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
+		$activate_url = 'plugins.php?action=activate&plugin=' . urlencode( 'features-by-woothemes/woothemes-features.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . urlencode( wp_create_nonce( 'activate-plugin_features-by-woothemes/woothemes-features.php' ) );
+		if ( true == $this->_is_features_plugin_installed() ) {
+			$text = '<a href="' . esc_url( $activate_url ) . '">' . __( 'Activate the Features by WooThemes plugin', 'icons-for-features' ) . '</a>';
+		} else {
+			$text = '<a href="' . esc_url( $install_url ) . '">' . __( 'Install the Features by WooThemes plugin', 'icons-for-features' ) . '</a>';
+		}
+		$text = sprintf( __( '%sIcons for Features%s is almost ready. %s to get started.', 'icons-for-features' ), '<strong>', '</strong>', $text );
+
+		$dismiss_url = add_query_arg( 'action', 'icons-for-features-dismiss', add_query_arg( 'nonce', wp_create_nonce( 'icons-for-features-dismiss' ) ) );
+				echo '<div class="updated fade"><p class="alignleft">' . $text . '</p><p class="alignright"><a href="' . esc_url( $dismiss_url ) . '">' . __( 'Dismiss', 'icons-for-features' ) . '</a></p><div class="clear"></div></div>' . "\n";
+	} // End maybe_display_activation_notice()
+
+	/**
+	 * Check if the Features by WooThemes plugin is activated.
+	 * @access  protected
+	 * @since   6.0.0
+	 * @return  boolean
+	 */
+	protected function _is_features_plugin_activated () {
+		$response = false;
+		$active_plugins = apply_filters( 'active_plugins', get_option('active_plugins' ) );
+		if ( 0 < count( $active_plugins ) && in_array( 'features-by-woothemes/woothemes-features.php', $active_plugins ) ) $response = true;
+		return $response;
+	} // End _is_features_plugin_activated()
+
+	/**
+	 * Check if the Features by WooThemes plugin is installed.
+	 * @access  protected
+	 * @since   6.0.0
+	 * @return  boolean
+	 */
+	protected function _is_features_plugin_installed () {
+		$response = false;
+		$plugins = get_plugins();
+		if ( 0 < count( $plugins ) && in_array( 'features-by-woothemes/woothemes-features.php', array_keys( $plugins ) ) ) $response = true;
+		return $response;
+	} // End _is_features_plugin_installed()
 
 	/**
 	 * Conditionally load the admin styles if we're viewing the "feature" post type.
@@ -116,6 +191,8 @@ class Icons_For_Features_Admin {
 		if ( 'fa-no-featured-icon' == $icon ) $icon = '';
 
 		$html .= '<input type="hidden" name="currently-selected-icon" class="currently-selected-icon" value="' . esc_attr( $icon ) . '" />' . "\n";
+
+		$html .= '<p><small>' . __( '(When an icon is selected, it takes the place of the featured image.)', 'icons-for-features' ) . '</small></p>' . "\n";
 
 		echo $html;
 	} // End meta_box_content()
