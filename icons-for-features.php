@@ -109,6 +109,7 @@ final class Icons_For_Features {
 			add_action( 'wp_footer', array( $this, 'maybe_enqueue_styles' ) );
 			add_filter( 'woothemes_features_item_template', array( $this, 'add_feature_icon_placeholder' ), 10, 2 );
 			add_filter( 'woothemes_features_template', array( $this, 'override_feature_icon_placeholder' ), 10, 2 );
+			add_filter( 'woothemes_features_html', array( $this, 'maybe_remove_override_filter' ) );
 		}
 	} // End __construct()
 
@@ -195,6 +196,17 @@ final class Icons_For_Features {
 	} // End override_has_post_thumbnail()
 
 	/**
+	 * Remove the filter used to force has_post_thumbnail() to return false.
+	 * @access public
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function maybe_remove_override_filter ( $html ) {
+		remove_filter( 'get_post_metadata', array( $this, 'override_has_post_thumbnail' ), 10, 4 );
+		return $html;
+	} // End maybe_remove_override_filter()
+
+	/**
 	 * Add an %%ICON%% placeholder to the feature template, replacing %%IMAGE%%, if it exists.
 	 * If no %%IMAGE%% tag is present, the administrator doesn't want an image to display, so don't display an icon (respect their wishes).
 	 * @access  public
@@ -215,8 +227,6 @@ final class Icons_For_Features {
 	 * @return  void
 	 */
 	public function override_feature_icon_placeholder ( $html, $post ) {
-		remove_filter( 'get_post_metadata', array( $this, 'override_has_post_thumbnail' ), 10, 4 );
-
 		$icon = $this->get_the_icon_html( get_the_ID() );
 		$html = str_replace( '%%ICON%%', $icon, $html );
 		return $html;
