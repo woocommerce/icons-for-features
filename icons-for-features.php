@@ -107,7 +107,8 @@ final class Icons_For_Features {
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
 			// An unfortunate caveat, as we need to wait for the entire page to load, in order to determine whether or not there have been Features called.
 			add_action( 'wp_footer', array( $this, 'maybe_enqueue_styles' ) );
-			add_action( 'after_setup_theme', array( $this, 'maybe_apply_features_template_override' ) );
+			add_filter( 'woothemes_features_item_template', array( $this, 'add_feature_icon_placeholder' ), 10, 2 );
+			add_filter( 'woothemes_features_template', array( $this, 'override_feature_icon_placeholder' ), 10, 2 );
 		}
 	} // End __construct()
 
@@ -177,14 +178,49 @@ final class Icons_For_Features {
 	} // End _log_version_number()
 
 	/**
-	 * Maybe apply an override of the feature's image, if an icon is set.
+	 * Force has_post_thumbnail() to return false, to "skip over" images where there is an icon for the feature.
+	 * This caters for older versions of the Features by WooThemes plugin, where there are a few useful filters that are missing.
+	 * @access public
+	 * @since  1.0.0
+	 * @param  boolean $response  Force this to be false, somehow.
+	 * @param  int $object_id The current object ID.
+	 * @param  string $meta_key  The specified meta key to retrieve.
+	 * @param  boolean $single    Whether this is a singular instance key or not.
+	 * @return boolean            Always return a boolean.
+	 */
+	public function override_has_post_thumbnail ( $response, $object_id, $meta_key, $single ) {
+		if ( '_thumbnail_id' != $meta_key ) return $response;
+		if ( '' != get_post_meta( intval( $object_id ), '_icon', true ) ) $response = false;
+		return $response;
+	} // End override_has_post_thumbnail()
+
+	/**
+	 * Add an %%ICON%% placeholder to the feature template, replacing %%IMAGE%%, if it exists.
+	 * If no %%IMAGE%% tag is present, the administrator doesn't want an image to display, so don't display an icon (respect their wishes).
 	 * @access  public
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function maybe_apply_features_template_override () {
-		// TODO
-	} // End maybe_apply_features_template_override()
+	public function add_feature_icon_placeholder ( $tpl, $args ) {
+		add_filter( 'get_post_metadata', array( $this, 'override_has_post_thumbnail' ), 10, 4 );
+
+		$tpl = str_replace( '%%IMAGE%%', '%%ICON%%%%IMAGE%%', $tpl );
+		return $tpl;
+	} // End add_feature_icon_placeholder()
+
+	/**
+	 * Override the %%ICON%% template tag, if an icon is available. If not, remove the template tag.
+	 * @access  public
+	 * @since   1.0.0
+	 * @return  void
+	 */
+	public function override_feature_icon_placeholder ( $html, $post ) {
+		remove_filter( 'get_post_metadata', array( $this, 'override_has_post_thumbnail' ), 10, 4 );
+
+		$icon = $this->get_the_icon_html( get_the_ID() );
+		$html = str_replace( '%%ICON%%', $icon, $html );
+		return $html;
+	} // End override_feature_icon_placeholder()
 
 	/**
 	 * Register the CSS files to be loaded for this plugin.
@@ -206,7 +242,7 @@ final class Icons_For_Features {
 	 * @return void
 	 */
 	public function maybe_enqueue_styles () {
-		if ( ( is_singular() && is_post_type( 'feature' ) ) || is_post_type_archive( 'feature' ) || did_action( 'woothemes_features_before' ) ) {
+		if ( ( is_singular() && 'feature' == get_post_type() ) || is_post_type_archive( 'feature' ) || did_action( 'woothemes_features_before' ) ) {
 			wp_enqueue_style( $this->token . '-icons-loader' );
 		}
 	} // End maybe_enqueue_styles()
