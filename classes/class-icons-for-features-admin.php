@@ -43,7 +43,6 @@ class Icons_For_Features_Admin {
 		// Display an admin notice, if the Features by WooThemes plugin it's present or is present yet not activated.
 		add_action( 'network_admin_notices', array( $this, 'maybe_display_activation_notice' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_display_activation_notice' ) );
-		if( is_multisite() && ! is_network_admin() ) remove_action( 'admin_notices', array( $this, 'maybe_display_activation_notice' ) );
 
 		// Process the 'Dismiss' link, if valid.
 		add_action( 'admin_init', array( $this, 'maybe_process_dismiss_link' ) );
