@@ -56,7 +56,7 @@ class Icons_For_Features_Admin {
 	 */
 	public function maybe_process_dismiss_link () {
 		if ( isset( $_GET['action'] ) && ( 'icons-for-features-dismiss' == $_GET['action'] ) && isset( $_GET['nonce'] ) && check_admin_referer( 'icons-for-features-dismiss', 'nonce' ) ) {
-			update_site_option( 'icons_for_features_dismiss_activation_notice', true );
+			update_option( 'icons_for_features_dismiss_activation_notice', true );
 
 			$redirect_url = remove_query_arg( 'action', remove_query_arg( 'nonce', $_SERVER['REQUEST_URI'] ) );
 
@@ -75,7 +75,7 @@ class Icons_For_Features_Admin {
 		if ( $this->_is_features_plugin_activated() ) return;
 		if ( ! current_user_can( 'manage_options' ) ) return; // Don't show the message if the user isn't an administrator.
 		if ( is_multisite() && ! is_super_admin() ) return; // Don't show the message if on a multisite and the user isn't a super user.
-		if ( true == get_site_option( 'icons_for_features_dismiss_activation_notice', false ) ) return; // Don't show the message if the user dismissed it.
+		if ( true == get_option( 'icons_for_features_dismiss_activation_notice', false ) ) return; // Don't show the message if the user dismissed it.
 
 		$slug = 'features-by-woothemes';
 		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
