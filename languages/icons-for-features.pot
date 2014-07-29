@@ -1,10 +1,10 @@
-# Copyright (C) 2014 Icons For Features
-# This file is distributed under the same license as the Icons For Features package.
+# Copyright (C) 2014 Icons For Features',
+# This file is distributed under the same license as the Icons For Features', package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Icons For Features 1.0.0\n"
+"Project-Id-Version: Icons For Features', 1.0.0',\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/icons-for-features\n"
-"POT-Creation-Date: 2014-03-14 09:19:30+00:00\n"
+"POT-Creation-Date: 2014-07-29 13:46:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,61 +12,61 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: classes/class-icons-for-features-admin.php:85
+#: classes/class-icons-for-features-admin.php:84
 msgid "Activate the Features by WooThemes plugin"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:87
+#: classes/class-icons-for-features-admin.php:86
 msgid "Install the Features by WooThemes plugin"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:89
+#: classes/class-icons-for-features-admin.php:88
 msgid "%sIcons for Features%s is almost ready. %s to get started."
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:92
+#: classes/class-icons-for-features-admin.php:91
 msgid "Dismiss"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:154
+#: classes/class-icons-for-features-admin.php:153
 msgid "Feature Icon"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:170
+#: classes/class-icons-for-features-admin.php:169
 msgid "No icons are currently supported."
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:184
+#: classes/class-icons-for-features-admin.php:183
 msgid "No Icon"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:195
+#: classes/class-icons-for-features-admin.php:194
 msgid "(When an icon is selected, it takes the place of the featured image.)"
 msgstr ""
 
-#: classes/class-icons-for-features-admin.php:274
+#: classes/class-icons-for-features-admin.php:273
 msgid "Icon"
 msgstr ""
 
-#: icons-for-features.php:147 icons-for-features.php:156
+#: icons-for-features.php:148 icons-for-features.php:157
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 #. Plugin Name of the plugin/theme
-msgid "Icons For Features"
+msgid "Icons For Features',"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.woothemes.com/products/icons-for-features/"
+msgid "http://www.woothemes.com/products/icons-for-features/',"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Hey there! Do you want to display awesome icons for each of your features? Look no further, I'm here to help!"
+msgid "Hey there! Do you want to display awesome icons for each of your features? Look no further, I'm here to help!',"
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WooThemes"
+msgid "WooThemes',"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://woothemes.com/"
+msgid "http://woothemes.com/',"
 msgstr ""
