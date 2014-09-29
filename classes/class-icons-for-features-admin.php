@@ -246,9 +246,9 @@ class Icons_For_Features_Admin {
 		
 		// Allow themes/plugins to disable the color picker.
 		if ( apply_filters( 'icons_for_features_icon_color', true ) ) {
-			$fields = array_merge( $fields, array ( 'icon_color' ) );
+			$fields[] = 'icon_color';
 		}
-		
+				
 		foreach ( $fields as $f ) {
 
 			${$f} = strip_tags(trim($_POST[$f]));
