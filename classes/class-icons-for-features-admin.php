@@ -125,12 +125,12 @@ class Icons_For_Features_Admin {
 	 */
 	public function maybe_load_styles () {
 		if ( 'feature' == get_post_type() ) {
-			
+
 			wp_enqueue_style( $this->token . '-icons-admin' );
-			
+
 			// Add the color picker css
 			wp_enqueue_style( 'wp-color-picker' );
-			
+
 		}
 	} // End maybe_load_styles()
 
@@ -142,12 +142,13 @@ class Icons_For_Features_Admin {
 	 */
 	public function maybe_load_scripts () {
 		if ( 'feature' == get_post_type() ) {
-		
+
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_script( $this->token . '-icons-admin', esc_url( Icons_For_Features()->plugin_url . 'assets/js/admin-icon-toggle' . $suffix . '.js' ), array( 'jquery' ), Icons_For_Features()->version, true );
-			
+
 			// Add the color picker scripts
 			wp_enqueue_script( 'wp-color-picker' );
+
 		}
 	} // End maybe_load_scripts()
 
@@ -178,20 +179,20 @@ class Icons_For_Features_Admin {
 			_e( 'No icons are currently supported.', 'icons-for-features' );
 			return;
 		}
-		
+
 		$icon = 'fa-no-feature-icon';
 		if ( isset( $fields['_icon'][0] ) ) {
 			$icon = esc_attr( $fields['_icon'][0] );
 		}
-		
+
 		$icon_color = '';
 		$icon_color_html = '';
-		
+
 		if ( isset( $fields['_icon_color'][0] ) ) {
 			$icon_color = esc_attr( $fields['_icon_color'][0] );
 			$icon_color_html = 'style="color: ' . $icon_color . ';"';
 		}
-		
+
 		$html = '<input type="hidden" name="woo_' . $this->token . '_noonce" id="woo_' . $this->token . '_noonce" value="' . wp_create_nonce( $this->token ) . '" />';
 
 		$html .= '<div class="icon-preview fa ' . esc_attr( $icon ) . '" ' . $icon_color_html . '></div>';
@@ -209,14 +210,14 @@ class Icons_For_Features_Admin {
 		$html .= '<input type="hidden" name="currently-selected-icon" class="currently-selected-icon" value="' . esc_attr( $icon ) . '" />' . "\n";
 
 		$html .= '<p><small>' . __( '(When an icon is selected, it takes the place of the featured image.)', 'icons-for-features' ) . '</small></p>' . "\n";
-		
+
 		// Allow themes/plugins to disable the color picker.
 		if ( apply_filters( 'icons_for_features_icon_color', true ) ) {
-		
+
 			$html .= '<input name="icon_color" type="text" value="' . esc_attr( $icon_color ) . '" class="feature-icon-color" data-default-color="false" />' . "\n";
-			
+
 			$html .= '<input type="hidden" name="currently-selected-icon-color" class="currently-selected-icon-color" value="' . esc_attr( $icon_color ) . '" />' . "\n";
-		
+
 		}
 
 		echo $html;
@@ -243,12 +244,12 @@ class Icons_For_Features_Admin {
 		}
 
 		$fields = array( 'icon' );
-		
+
 		// Allow themes/plugins to disable the color picker.
 		if ( apply_filters( 'icons_for_features_icon_color', true ) ) {
 			$fields[] = 'icon_color';
 		}
-				
+
 		foreach ( $fields as $f ) {
 
 			${$f} = strip_tags(trim($_POST[$f]));
