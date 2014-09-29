@@ -210,9 +210,14 @@ class Icons_For_Features_Admin {
 
 		$html .= '<p><small>' . __( '(When an icon is selected, it takes the place of the featured image.)', 'icons-for-features' ) . '</small></p>' . "\n";
 		
-		$html .= '<input name="icon_color" type="text" value="' . esc_attr( $icon_color ) . '" class="feature-icon-color" data-default-color="false" />' . "\n";
+		// Allow themes/plugins to disable the color picker.
+		if ( apply_filters( 'icons_for_features_icon_color', true ) ) {
 		
-		$html .= '<input type="hidden" name="currently-selected-icon-color" class="currently-selected-icon-color" value="' . esc_attr( $icon_color ) . '" />' . "\n";
+			$html .= '<input name="icon_color" type="text" value="' . esc_attr( $icon_color ) . '" class="feature-icon-color" data-default-color="false" />' . "\n";
+			
+			$html .= '<input type="hidden" name="currently-selected-icon-color" class="currently-selected-icon-color" value="' . esc_attr( $icon_color ) . '" />' . "\n";
+		
+		}
 
 		echo $html;
 	} // End meta_box_content()
@@ -237,8 +242,13 @@ class Icons_For_Features_Admin {
 			return $post_id;
 		}
 
-		$fields = array( 'icon', 'icon_color' );
-
+		$fields = array( 'icon' );
+		
+		// Allow themes/plugins to disable the color picker.
+		if ( apply_filters( 'icons_for_features_icon_color', true ) ) {
+			$fields = array_merge( $fields, array ( 'icon_color' ) );
+		}
+		
 		foreach ( $fields as $f ) {
 
 			${$f} = strip_tags(trim($_POST[$f]));
