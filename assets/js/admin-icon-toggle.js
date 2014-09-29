@@ -7,4 +7,6 @@ jQuery( document ).ready( function ( e ) {
 		jQuery( '.icon-preview' ).removeClass( oldIconObj.val() ).addClass( newIconObj.val() );
 		oldIconObj.val( newIconObj.val() );
 	} );
+	
+    jQuery( '.feature-icon-color' ).wpColorPicker();  
 });

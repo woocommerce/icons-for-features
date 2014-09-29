@@ -3,11 +3,11 @@
  * Plugin Name: Icons For Features
  * Plugin URI: http://www.woothemes.com/products/icons-for-features/
  * Description: Hey there! Do you want to display awesome icons for each of your features? Look no further, I'm here to help!
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: WooThemes
  * Author URI: http://woothemes.com/
  * Requires at least: 3.8.1
- * Tested up to: 3.8.1
+ * Tested up to: 4.0.0
  *
  * Text Domain: icons-for-features
  * Domain Path: /languages/
@@ -267,9 +267,12 @@ final class Icons_For_Features {
 	public function get_the_icon_html ( $post_id = null ) {
 		if ( is_null( $post_id ) ) $post_id = get_the_ID();
 		$response = '';
+		$icon_color_html = '';
 		$icon = get_post_meta( intval( $post_id ), '_icon', true );
+		$icon_color = get_post_meta( intval( $post_id ), '_icon_color', true );
+		if ( '' != $icon_color ) { $icon_color_html = 'style="color: ' . esc_attr( $icon_color ) . ';"'; }
 		if ( '' != $icon && in_array( $icon, $this->get_supported_icon_list() ) ) {
-			$response = '<div class="icon-preview fa ' . esc_attr( $icon ) . '"></div>' . "\n";
+			$response = '<div class="icon-preview fa ' . esc_attr( $icon ) . '" ' . $icon_color_html . '></div>' . "\n";
 		}
 		return (string)apply_filters( 'icons_for_features_get_the_icon_html', $response );
 	} // End get_the_icon_html()
