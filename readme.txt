@@ -1,5 +1,5 @@
 === Icons for Features ===
-Contributors: woothemes,mattyza
+Contributors: woothemes,mattyza,danieldudzic
 Donate link: http://woothemes.com/
 Tags: features,icons,font-awesome
 Requires at least: 3.8.1
@@ -57,6 +57,10 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+* 2014-10-15
+* Adds the Chosen script, in order to improve the icon slection experience. 
 
 = 1.0.0 =
 * 2014-03-18

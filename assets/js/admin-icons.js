@@ -7,4 +7,5 @@ jQuery( document ).ready( function ( e ) {
 		jQuery( '.icon-preview' ).removeClass( oldIconObj.val() ).addClass( newIconObj.val() );
 		oldIconObj.val( newIconObj.val() );
 	} );
+    jQuery( '.feature-icon-selector' ).chosen( {no_results_text: "Oops, nothing found!"} ); 
 });

@@ -126,6 +126,9 @@ class Icons_For_Features_Admin {
 	public function maybe_load_styles () {
 		if ( 'feature' == get_post_type() ) {
 			wp_enqueue_style( $this->token . '-icons-admin' );
+			
+			// Add the Chosen.js css
+			wp_enqueue_style( $this->token . '-icons-chosen' );
 		}
 	} // End maybe_load_styles()
 
@@ -137,8 +140,14 @@ class Icons_For_Features_Admin {
 	 */
 	public function maybe_load_scripts () {
 		if ( 'feature' == get_post_type() ) {
+		
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( $this->token . '-icons-admin', esc_url( Icons_For_Features()->plugin_url . 'assets/js/admin-icon-toggle' . $suffix . '.js' ), array( 'jquery' ), Icons_For_Features()->version, true );
+			
+			wp_enqueue_script( $this->token . '-icons-admin', esc_url( Icons_For_Features()->plugin_url . 'assets/js/admin-icons' . $suffix . '.js' ), array( 'jquery' ), Icons_For_Features()->version, true );
+			
+			// Add the Chosen.js script
+			wp_enqueue_script( $this->token . '-icons-chosen', esc_url( Icons_For_Features()->plugin_url . 'assets/lib/chosen/chosen.jquery' . $suffix . '.js' ), array( 'jquery' ), Icons_For_Features()->version, true );
+
 		}
 	} // End maybe_load_scripts()
 
