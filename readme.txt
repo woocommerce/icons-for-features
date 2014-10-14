@@ -60,7 +60,7 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 
 = 1.1.0 =
 * 2014-10-15
-* Adds the Chosen script, in order to improve the icon slection experience. 
+* Adds the Chosen script, in order to improve the icon selection experience. 
 
 = 1.0.0 =
 * 2014-03-18
