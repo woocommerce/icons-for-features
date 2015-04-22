@@ -60,7 +60,7 @@ class Icons_For_Features_Admin {
 
 			$redirect_url = remove_query_arg( 'action', remove_query_arg( 'nonce', $_SERVER['REQUEST_URI'] ) );
 
-			wp_safe_redirect( $redirect_url );
+			wp_safe_redirect( esc_url( $redirect_url ) );
 			exit;
 		}
 	} // End maybe_process_dismiss_link()

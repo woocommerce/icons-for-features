@@ -3,11 +3,11 @@
  * Plugin Name: Icons For Features
  * Plugin URI: http://www.woothemes.com/products/icons-for-features/
  * Description: Hey there! Do you want to display awesome icons for each of your features? Look no further, I'm here to help!
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: WooThemes
  * Author URI: http://woothemes.com/
  * Requires at least: 3.8.1
- * Tested up to: 3.8.1
+ * Tested up to: 4.1.1
  *
  * Text Domain: icons-for-features
  * Domain Path: /languages/
