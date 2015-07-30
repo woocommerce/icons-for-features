@@ -72,6 +72,10 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 
 == Changelog ==
 
+= 1.1.0 =
+* 2015-07-30
+* Adds a URL link to the icon.
+
 = 1.0.1 =
 * 2015-04-22
 * Fix for remove_query_arg vulnerability.
