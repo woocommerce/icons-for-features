@@ -4,7 +4,7 @@ Donate link: http://woothemes.com/
 Tags: features,icons,font-awesome
 Requires at least: 3.8.1
 Tested up to: 4.1.1
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,7 +58,7 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 
 == Upgrade Notice ==
 
-= 1.0.2 =
+= 1.1.0 =
 * 2015-07-30
 * Adds a URL link to the icon.
 
