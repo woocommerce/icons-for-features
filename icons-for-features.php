@@ -7,7 +7,7 @@
  * Author: WooThemes
  * Author URI: http://woothemes.com/
  * Requires at least: 3.8.1
- * Tested up to: 4.1.1
+ * Tested up to: 4.3.1
  *
  * Text Domain: icons-for-features
  * Domain Path: /languages/
@@ -272,12 +272,15 @@ final class Icons_For_Features {
 		$icon = get_post_meta( intval( $post_id ), '_icon', true );
 		$url = get_post_meta( intval( $post_id ), '_url', true );
 		$title = get_the_title( intval( $post_id ) );
+		$icon_color_html = '';
+		$icon_color = get_post_meta( intval( $post_id ), '_icon_color', true );
 
 		if ( '' != $icon && in_array( $icon, $this->get_supported_icon_list() ) ) {
+			if ( '' != $icon_color ) { $icon_color_html = 'style="color: ' . esc_attr( $icon_color ) . ';"'; }
 			if ( '' != $url ) {
-				$response = '<a title="' . esc_attr ( $title ) . '" href="' . esc_url( $url ) . '"><div class="icon-preview fa ' . esc_attr( $icon ) . '"></div></a>' . "\n";
+				$response = '<a title="' . esc_attr ( $title ) . '" href="' . esc_url( $url ) . '"><div class="icon-preview fa ' . esc_attr( $icon ) . '" ' . $icon_color_html . '></div></a>' . "\n";
 			} else {
-				$response = '<div class="icon-preview fa ' . esc_attr( $icon ) . '"></div>' . "\n";
+				$response = '<div class="icon-preview fa ' . esc_attr( $icon ) . '" ' . $icon_color_html . '></div>' . "\n";
 			}
 		}
 		return (string)apply_filters( 'icons_for_features_get_the_icon_html', $response );
