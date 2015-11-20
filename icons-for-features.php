@@ -243,6 +243,7 @@ final class Icons_For_Features {
 		wp_register_style( $this->token . '-icons', esc_url( $this->plugin_url . 'assets/lib/font-awesome/css/font-awesome' . $suffix . '.css' ), array(), '4.0.3', 'all' );
 		wp_register_style( $this->token . '-icons-loader', esc_url( $this->plugin_url . 'assets/css/style.css' ), array( $this->token . '-icons' ), $this->version, 'all' );
 		wp_register_style( $this->token . '-icons-admin', esc_url( $this->plugin_url . 'assets/css/admin.css' ), array( $this->token . '-icons' ), $this->version, 'all' );
+		wp_register_style( $this->token . '-icons-chosen', esc_url( $this->plugin_url . 'assets/lib/chosen/chosen' . $suffix . '.css' ), array( $this->token . '-icons' ), $this->version, 'all' );
 	} // End register_styles()
 
 	/**

@@ -61,6 +61,7 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 = 1.1.0 =
 * 2015-11-20
 * Adds a URL link to the icon.
+* Adds the Chosen script, in order to improve the icon selection experience. 
 
 = 1.0.1 =
 * 2015-04-22
