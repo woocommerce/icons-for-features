@@ -61,7 +61,8 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 = 1.1.0 =
 * 2015-11-20
 * Adds a URL link to the icon.
-* Adds the Chosen script, in order to improve the icon selection experience. 
+* Adds the Chosen script, in order to improve the icon selection experience.
+* Adds Color Picker support, which allows to easily select colors for the icons. 
 
 = 1.0.1 =
 * 2015-04-22
@@ -76,6 +77,8 @@ We encourage everyone to contribute their ideas, thoughts and code snippets. Thi
 = 1.1.0 =
 * 2015-11-20
 * Adds a URL link to the icon.
+* Adds the Chosen script
+* Adds Color Picker support.
 
 = 1.0.1 =
 * 2015-04-22
